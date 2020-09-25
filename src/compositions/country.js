@@ -3,7 +3,7 @@ import axios from "axios"
 
 export const countries = (name) => {
     const country = ref({})
-    const getKoreaCountry = async () => {
+    const getCountry = async () => {
         await axios
             .get(`https://restcountries.eu/rest/v2/name/${name}`)
             .then((res) => {
@@ -15,6 +15,6 @@ export const countries = (name) => {
 
     return {
         country,
-        getKoreaCountry
+        getCountry
     }
 }

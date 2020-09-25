@@ -2,14 +2,12 @@
   <div>Country</div>
 
   <ul>
-      <li v-for="(value, key) in country" :key="key">
-          {{ key }}: {{ value }}
-      </li>
+    <li v-for="(value, key) in country" :key="key">{{ key }}: {{ value }}</li>
   </ul>
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onBeforeMount } from "vue";
 import { countries } from "@/compositions/country";
 
 export default {
@@ -19,9 +17,11 @@ export default {
     },
   },
   setup(props) {
-    const { country, getKoreaCountry } = countries(props.name);
+    const { country, getCountry } = countries(props.name);
 
-    onMounted(getKoreaCountry);
+    onBeforeMount(() => {
+      getCountry();
+    });
 
     return {
       country,

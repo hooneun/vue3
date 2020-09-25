@@ -11,19 +11,23 @@
     {{ repositories.greeting }}
   </div>
 
-  <country name="korea" />
+  <country :name="countryName" />
 </template>
 
 <script>
-import { computed, onMounted, reactive, ref, watch } from "vue";
+import { computed, onBeforeMount, onMounted, reactive, ref, watch } from "vue";
 import Add from "@/components/Add";
 import Country from "@/components/Country";
 import { messages } from "@/compositions/message";
 
 export default {
-  components: { Add, Country },
+  components: {
+    Add,
+    Country,
+  },
   setup() {
     const { message, reverseMessage, clickMessage } = messages();
+
     const numbers = ref([1, 2, 3]);
     const numbersToString = computed(() => numbers.value.join(", "));
 
@@ -31,6 +35,7 @@ export default {
     const state = reactive({
       count,
     });
+    const countryName = ref("korea");
 
     let repositories = ref({});
 
@@ -47,6 +52,9 @@ export default {
     // console.log(count.value);
     // console.log(state.count);
 
+    onBeforeMount(() => {
+    });
+
     onMounted(() => {
       message.value = message.value + "????";
       getSyncTest();
@@ -62,6 +70,7 @@ export default {
       numbers,
       numbersToString,
       repositories,
+      countryName,
     };
   },
 };
