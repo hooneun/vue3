@@ -6,6 +6,11 @@
     AddNum {{ numbersToString }}
     <add :numbers="numbers" />
   </div>
+
+  <div>
+    {{ repositories.greeting }}
+  </div>
+
 </template>
 
 <script>
@@ -18,27 +23,45 @@ export default {
   setup() {
     const { message, reverseMessage, clickMessage } = messages();
 
-    onMounted(() => (message.value = message.value + "????"));
-    watch(message, () => console.log(message));
     const numbers = ref([1, 2, 3]);
     const numbersToString = computed(() => numbers.value.join(", "));
 
-    const count = ref(1)
+    const count = ref(1);
     const state = reactive({
-      count
-    })
+      count,
+    });
 
-    console.log(state.count)
-    count.value ++
-    console.log(count.value)
-    console.log(state.count)
+    let repositories = ref({});
+
+    const getSyncTest = async () => {
+      await setTimeout(() => {
+       repositories.value = {
+         greeting: "Hi"
+       }
+     }, 3000)
+    };
+
+    // console.log(state.count);
+    count.value++;
+    // console.log(count.value);
+    // console.log(state.count);
+
+    onMounted(() => {
+      message.value = message.value + "????";
+      getSyncTest();
+    });
+    
+
+    watch(message, () => console.log(message));
 
     return {
+      state,
       message,
       reverseMessage,
       clickMessage,
       numbers,
       numbersToString,
+      repositories,
     };
   },
 };
