@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { onBeforeMount } from "vue";
+// import { onBeforeMount } from "vue";
 import { countries } from "@/compositions/country";
 
 export default {
@@ -16,12 +16,14 @@ export default {
       type: String,
     },
   },
-  setup(props) {
+  async setup(props) {
     const { country, getCountry } = countries(props.name);
+    await getCountry()
+    console.log(country)
 
-    onBeforeMount(() => {
-      getCountry();
-    });
+    // onBeforeMount(() => {
+    //   getCountry();
+    // });
 
     return {
       country,

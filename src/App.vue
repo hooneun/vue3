@@ -11,7 +11,14 @@
     {{ repositories.greeting }}
   </div>
 
-  <country :name="countryName" />
+  <Suspense>
+    <template #default>
+      <Country :name="countryName" />
+    </template>
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
 </template>
 
 <script>
@@ -52,8 +59,7 @@ export default {
     // console.log(count.value);
     // console.log(state.count);
 
-    onBeforeMount(() => {
-    });
+    onBeforeMount(() => {});
 
     onMounted(() => {
       message.value = message.value + "????";
